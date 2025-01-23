@@ -1,8 +1,8 @@
-import { json2csv } from 'json-2-csv';
+import { json2csv, csv2json } from 'json-2-csv';
 import { type IQueryData } from './util';
-import { writeFile } from "node:fs/promises";
+import { writeFile, readFile } from "node:fs/promises";
 
-export async function generateCsvSurvey(data: Record<string, IQueryData>, outputFile: string) {
+async function generateCsvObject(data: Record<string, IQueryData>) {
     const entries: ISurvey[] = [];
 
     for (const [key, value] of Object.entries(data)) {
@@ -18,7 +18,49 @@ export async function generateCsvSurvey(data: Record<string, IQueryData>, output
         }
         entries.push(entry);
     }
-    await writeFile(outputFile, await json2csv(entries));
+
+    return await json2csv(entries);
+}
+
+export async function generateCsvSurvey(data: Record<string, IQueryData>, outputFile: string) {
+    const csvObject = await generateCsvObject(data);
+    await writeFile(outputFile, csvObject);
+}
+
+export async function appendCsvSurvey(inputFile: string, data: Record<string, IQueryData>, outputFile: string) {
+    const prevCsvString = (await readFile(inputFile)).toString();
+    const prevCsvObj = <ISurvey[]>(await csv2json(prevCsvString));
+
+    const newCsvString = await generateCsvObject(data);
+    const newCsvObj = <ISurvey[]>(await csv2json(newCsvString));
+
+    const currentCsv: ISurvey[] = JSON.parse(JSON.stringify(newCsvObj));
+
+    for (const entry of prevCsvObj) {
+        if (hasSurveyEntryBeFilled(entry as ISurvey)) {
+            const index = currentCsv.findIndex(el => el.Query === entry.Query);
+            currentCsv[index] = entry;
+        }
+    }
+
+    await writeFile(outputFile, await json2csv(currentCsv));
+}
+
+function hasSurveyEntryBeFilled(entry: ISurvey): boolean {
+    const entryToFill: (keyof ISurvey)[] = [
+        "Real world relevance or background of the query",
+        "Is there a Tricks to make the query executable?",
+        "Is this query a toy example?",
+        "Is this query similar to another query"
+    ];
+
+    for (const key of entryToFill) {
+        if (entry[key] !== "") {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 interface ISurvey {
