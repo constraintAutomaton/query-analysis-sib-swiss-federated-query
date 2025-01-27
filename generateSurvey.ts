@@ -2,7 +2,7 @@ import { json2csv, csv2json } from 'json-2-csv';
 import { type IQueryData } from './util';
 import { writeFile, readFile } from "node:fs/promises";
 
-async function generateCsvObject(data: Record<string, IQueryData>) {
+function generateCsvObject(data: Record<string, IQueryData>): ISurvey[] {
     const entries: ISurvey[] = [];
 
     for (const [key, value] of Object.entries(data)) {
@@ -12,46 +12,48 @@ async function generateCsvObject(data: Record<string, IQueryData>) {
             "Target endpoint": value.target,
             "Federated endpoints": value.federatesWith.join(", "),
             "Real world relevance or background of the query": "",
-            "Is this query a toy example?": "",
-            "Is there a Tricks to make the query executable?": "",
-            "Is this query similar to another query": ""
+            'Is this query a toy example?': "",
+            'Are there any tricks to make the query executable?': "",
+            'Is this query similar to another query?\r': ""
         }
         entries.push(entry);
     }
 
-    return await json2csv(entries);
+    return entries;
 }
 
 export async function generateCsvSurvey(data: Record<string, IQueryData>, outputFile: string) {
-    const csvObject = await generateCsvObject(data);
-    await writeFile(outputFile, csvObject);
+    const csvObject = generateCsvObject(data);
+    await writeFile(outputFile, await json2csv(csvObject));
 }
 
 export async function appendCsvSurvey(inputFile: string, data: Record<string, IQueryData>, outputFile: string) {
     const prevCsvString = (await readFile(inputFile)).toString();
-    const prevCsvObj = <ISurvey[]>(await csv2json(prevCsvString));
+    const prevCsvObj = <ISurvey[]>(await csv2json(prevCsvString, { delimiter: { wrap: "" } }));
 
-    const newCsvString = await generateCsvObject(data);
-    const newCsvObj = <ISurvey[]>(await csv2json(newCsvString));
+    const newCsvObj = <ISurvey[]>(await generateCsvObject(data));
 
     const currentCsv: ISurvey[] = JSON.parse(JSON.stringify(newCsvObj));
 
     for (const entry of prevCsvObj) {
+        const index = currentCsv.findIndex(el => el.Query === entry.Query);
+        if (index === -1) {
+            currentCsv.push(entry)
+        }
         if (hasSurveyEntryBeFilled(entry as ISurvey)) {
-            const index = currentCsv.findIndex(el => el.Query === entry.Query);
             currentCsv[index] = entry;
         }
     }
-
+    console.log(JSON.stringify(currentCsv))
     await writeFile(outputFile, await json2csv(currentCsv));
 }
 
 function hasSurveyEntryBeFilled(entry: ISurvey): boolean {
     const entryToFill: (keyof ISurvey)[] = [
         "Real world relevance or background of the query",
-        "Is there a Tricks to make the query executable?",
-        "Is this query a toy example?",
-        "Is this query similar to another query"
+        'Are there any tricks to make the query executable?',
+        'Is this query a toy example?',
+        'Is this query similar to another query?\r'
     ];
 
     for (const key of entryToFill) {
@@ -69,7 +71,7 @@ interface ISurvey {
     "Target endpoint": string;
     "Federated endpoints": string;
     "Real world relevance or background of the query": string;
-    "Is there a Tricks to make the query executable?": string;
-    "Is this query a toy example?": string;
-    "Is this query similar to another query": string
+    'Is this query a toy example?': string;
+    'Are there any tricks to make the query executable?': string;
+    'Is this query similar to another query?\r': string
 }
