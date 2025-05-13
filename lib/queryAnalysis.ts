@@ -22,7 +22,7 @@ export interface IQueryAnalysis {
     summary: ISummary;
 }
 
-export function analyseQuery(data: Record<string, IQueryData>): Record<string, IFederatedQueryStatistic> {
+export function analyseQuery(data: Record<string, IQueryData>): IQueryAnalysis {
     const res: Record<string, IFederatedQueryStatistic> = {};
     const elements: {
         [K in keyof IFederatedQueryStatistic]: number[]
@@ -47,11 +47,33 @@ export function analyseQuery(data: Record<string, IQueryData>): Record<string, I
             number_federation_member: queryData.federatesWith.length
         };
 
-        for (const [key, value] of Object.entries(queryStatistic)) {
-            elements[key as keyof IFederatedQueryStatistic ].push(value)
+        for (const [stat, value] of Object.entries(res[key])) {
+            elements[stat as keyof IFederatedQueryStatistic].push(value)
         }
     }
     const summary: Partial<ISummary> = {};
 
-    return res;
+    for (const [key, value] of Object.entries(elements)) {
+        const array: number[] = value;
+        const sum = array.reduce((acc, current) => {
+            return acc + current;
+        }, 0);
+        const avg = sum / array.length;
+        const max = Math.max(...array);
+        const min = Math.min(...array);
+        const std = (array.reduce((acc, current) => {
+            return acc + (current - avg) ** 2
+        }, 0) / array.length) ** 0.5;
+
+        summary[key as keyof ISummary] = {
+            avg,
+            max,
+            min,
+            std
+        };
+    }
+    return {
+        data: res,
+        summary: <ISummary>summary
+    }
 }
