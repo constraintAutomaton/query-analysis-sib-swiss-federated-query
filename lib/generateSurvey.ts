@@ -65,12 +65,12 @@ function hasSurveyEntryBeFilled(entry: ISurvey): boolean {
     return false;
 }
 
-interface ISurvey {
+export interface ISurvey {
     Query: string;
     Description: string;
     "Target endpoint": string;
     "Federated endpoints": string;
-    "Real world relevance or background of the query": string;
+    "Real world relevance or background of the query": string|undefined;
     'Is this query a toy example?': string;
     'Are there any tricks to make the query executable?': string;
     'Is this query similar to another query?\r': string

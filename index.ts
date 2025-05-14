@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 import { type IQueryData } from './lib/util';
 import { Command } from 'commander';
 import { analyseQuery } from './lib/queryAnalysis';
-import { generate_summary_table, generate_summary_table_bucket } from './lib/resultTable';
+import { generate_summary_table, generate_summary_table_bucket, generate_table_relevance } from './lib/resultTable';
 
 
 const program = new Command();
@@ -31,6 +31,7 @@ if (queryAnalysisAction) {
   const outputStatPath = "./results/stat.json";
   const outputSummaryPath = "./results/summary.tex";
   const outputSummaryBucketPath = "./results/summary_bucket.tex";
+  const outputRelevance = "./results/relevance.tex";
 
   const res = analyseQuery(data);
 
@@ -42,4 +43,7 @@ if (queryAnalysisAction) {
 
   const bucketSummaryTable = await generate_summary_table_bucket(res.data);
   await Bun.write(outputSummaryBucketPath, bucketSummaryTable);
+
+  const tableRelevance = await generate_table_relevance();
+  await Bun.write(outputRelevance, tableRelevance);
 }
