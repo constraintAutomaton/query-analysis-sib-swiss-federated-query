@@ -31,7 +31,7 @@
       "number_union": 0,
       "number_distinct": 1,
       "number_limit": 0,
-      "number_federation_member": 4
+      "number_federation_member": 3
     },
     "https://sparql.uniprot.org/.well-known/sparql-examples/118_biosodafrontend_rat_brain_human_cancer": {
       "number_bgp": 4,
@@ -42,7 +42,7 @@
       "number_union": 0,
       "number_distinct": 0,
       "number_limit": 0,
-      "number_federation_member": 4
+      "number_federation_member": 3
     },
     "https://sparql.uniprot.org/.well-known/sparql-examples/92_uniprot_bioregistry_iri_translation": {
       "number_bgp": 3,
@@ -75,7 +75,7 @@
       "number_union": 1,
       "number_distinct": 1,
       "number_limit": 0,
-      "number_federation_member": 4
+      "number_federation_member": 3
     },
     "https://sparql.uniprot.org/.well-known/sparql-examples/46": {
       "number_bgp": 2,
@@ -97,7 +97,7 @@
       "number_union": 1,
       "number_distinct": 1,
       "number_limit": 0,
-      "number_federation_member": 4
+      "number_federation_member": 3
     },
     "https://sparql.uniprot.org/.well-known/sparql-examples/40": {
       "number_bgp": 2,
@@ -119,7 +119,7 @@
       "number_union": 0,
       "number_distinct": 1,
       "number_limit": 0,
-      "number_federation_member": 4
+      "number_federation_member": 3
     },
     "https://sparql.uniprot.org/.well-known/sparql-examples/99_uniprot_identifiers_org_translation": {
       "number_bgp": 2,
@@ -152,7 +152,7 @@
       "number_union": 0,
       "number_distinct": 1,
       "number_limit": 0,
-      "number_federation_member": 4
+      "number_federation_member": 3
     },
     "https://sparql.uniprot.org/.well-known/sparql-examples/54": {
       "number_bgp": 2,
@@ -251,7 +251,7 @@
       "number_union": 0,
       "number_distinct": 2,
       "number_limit": 0,
-      "number_federation_member": 4
+      "number_federation_member": 3
     },
     "https://sparql.uniprot.org/.well-known/sparql-examples/42": {
       "number_bgp": 2,
@@ -284,7 +284,7 @@
       "number_union": 0,
       "number_distinct": 1,
       "number_limit": 0,
-      "number_federation_member": 4
+      "number_federation_member": 3
     },
     "https://sparql.uniprot.org/.well-known/sparql-examples/43": {
       "number_bgp": 2,
@@ -306,7 +306,7 @@
       "number_union": 0,
       "number_distinct": 0,
       "number_limit": 0,
-      "number_federation_member": 4
+      "number_federation_member": 3
     },
     "https://sparql.swisslipids.org/.well-known/sparql-examples/27": {
       "number_bgp": 4,
@@ -317,7 +317,7 @@
       "number_union": 0,
       "number_distinct": 0,
       "number_limit": 0,
-      "number_federation_member": 4
+      "number_federation_member": 3
     },
     "https://sparql.swisslipids.org/.well-known/sparql-examples/34": {
       "number_bgp": 3,
@@ -328,7 +328,7 @@
       "number_union": 0,
       "number_distinct": 0,
       "number_limit": 0,
-      "number_federation_member": 4
+      "number_federation_member": 3
     },
     "https://sparql.swisslipids.org/.well-known/sparql-examples/16": {
       "number_bgp": 3,
@@ -339,7 +339,7 @@
       "number_union": 0,
       "number_distinct": 0,
       "number_limit": 0,
-      "number_federation_member": 4
+      "number_federation_member": 3
     },
     "https://sparql.swisslipids.org/.well-known/sparql-examples/6": {
       "number_bgp": 3,
@@ -350,7 +350,7 @@
       "number_union": 0,
       "number_distinct": 0,
       "number_limit": 0,
-      "number_federation_member": 4
+      "number_federation_member": 3
     },
     "https://sparql.swisslipids.org/.well-known/sparql-examples/7": {
       "number_bgp": 4,
@@ -361,7 +361,7 @@
       "number_union": 0,
       "number_distinct": 0,
       "number_limit": 0,
-      "number_federation_member": 4
+      "number_federation_member": 3
     },
     "https://sparql.swisslipids.org/.well-known/sparql-examples/5": {
       "number_bgp": 3,
@@ -394,7 +394,7 @@
       "number_union": 0,
       "number_distinct": 0,
       "number_limit": 0,
-      "number_federation_member": 4
+      "number_federation_member": 3
     },
     "https://sparql.orthodb.org/.well-known/sparql-examples/17": {
       "number_bgp": 2,
@@ -438,7 +438,7 @@
       "number_union": 0,
       "number_distinct": 0,
       "number_limit": 1,
-      "number_federation_member": 4
+      "number_federation_member": 3
     },
     "https://www.bgee.org/sparql/.well-known/sparql-examples/017": {
       "number_bgp": 2,
@@ -614,7 +614,7 @@
       "number_union": 0,
       "number_distinct": 1,
       "number_limit": 0,
-      "number_federation_member": 4
+      "number_federation_member": 3
     },
     "https://sparql.rhea-db.org/.well-known/sparql-examples/116_Retrieve_the_set_of_reactions_catalyzed_by_human_enzymes_reactions_EC_proteins_from_HUMAN_reference_proteome": {
       "number_bgp": 5,
@@ -636,7 +636,7 @@
       "number_union": 0,
       "number_distinct": 0,
       "number_limit": 0,
-      "number_federation_member": 4
+      "number_federation_member": 3
     },
     "https://sparql.rhea-db.org/.well-known/sparql-examples/117_Retrieve_parent_reactions_and_their_catalyzing_enzymes_for_a_metabolite_that_is_not_directly_involved_in_a_reaction": {
       "number_bgp": 5,
@@ -953,10 +953,10 @@
       "std": 0.35344821332169374
     },
     "number_federation_member": {
-      "avg": 2.4390243902439024,
-      "max": 4,
+      "avg": 2.2195121951219514,
+      "max": 3,
       "min": 2,
-      "std": 0.827832329194006
+      "std": 0.4139161645970039
     }
   }
 }

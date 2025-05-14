@@ -44,7 +44,7 @@ export function analyseQuery(data: Record<string, IQueryData>): IQueryAnalysis {
         const queryStatistic = calculate_statistic(query);
         res[key] = {
             ...queryStatistic,
-            number_federation_member: queryData.federatesWith.length
+            number_federation_member: queryData.federatesWith.length + 1
         };
 
         for (const [stat, value] of Object.entries(res[key])) {
