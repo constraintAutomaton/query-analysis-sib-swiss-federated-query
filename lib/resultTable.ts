@@ -100,7 +100,7 @@ export async function generate_table_relevance(): Promise<string> {
 
     const csvFile = Bun.file("./extra/SIB_survey_Curated.csv");
     const cvsString = await csvFile.text();
-    const csvObject = <ISurvey[]>(await csv2json(cvsString, { delimiter: { field: "," } }));
+    const csvObject = <ISurvey[]>(await csv2json(cvsString));
 
     const result: Record<string, number> = {
         "Contribution to a Peer-review Paper": 0,
@@ -111,14 +111,15 @@ export async function generate_table_relevance(): Promise<string> {
     };
     for (const entry of csvObject) {
         const relevance = entry["Real world relevance or background of the query"];
-        console.log(relevance);
         if (relevance === undefined) {
             result["Not Described"]++;
-        } else if (relevance.startsWith("PAPER:")) {
+        }else if(relevance === ""){
+            result["Not Described"]++;
+        }else if (relevance.startsWith("PAPER:")) {
             result["Contribution to a Peer-review Paper"]++;
         } else if (relevance.startsWith("REAL WORLD:")) {
             result["Highly Relevant"]++;
-        } else if (relevance.startsWith("Toy:")) {
+        } else if (relevance.startsWith("TOY:")) {
             result["Example Query"]++;
         } else if (relevance.length > 0) {
             result["Relevant"]++;
