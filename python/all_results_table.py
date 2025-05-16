@@ -23,7 +23,7 @@ table.set_cols_align(["c", "c", "c", "c", "c", "c"])
 
 for key, value in data.items():
     row = [
-        key,
+        f"\\url{{{key}}}",
         value["number_triple_patterns"],
         value["number_optional"],
         value["number_union"],
