@@ -11,19 +11,19 @@ with open(statsJsonFile, "r") as file:
 table = texttable.Texttable()
 header = [
     "Query",
-    "Number of Triple Patterns",
-    "Number of OGPs",
-    "Number of UGPs",
-    "Number of UGPs with Multiple Triple Patterns",
-    "Number of Federation Members"
+    "\\# TPs",
+    "\\# OGPs",
+    "\\# UGPs",
+    "\\# UGPs with Multiple TPs",
+    "\\# Federation Members"
 ]
 
 table.header(header)
 table.set_cols_align(["c", "c", "c", "c", "c", "c"])
-
+i = 1
 for key, value in data.items():
     row = [
-        f"\\url{{{key}}}",
+        f"\\href{{{key}}}{{{i}}}",
         value["number_triple_patterns"],
         value["number_optional"],
         value["number_union"],
@@ -31,6 +31,7 @@ for key, value in data.items():
         value["number_federation_member"]
         ]
     table.add_row(row)
+    i+=1
 
 latex_table = draw_latex(table)
 

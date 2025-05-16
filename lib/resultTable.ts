@@ -101,8 +101,7 @@ export async function generate_table_relevance(data: Record<string, IQueryData>)
 
     const result: Record<string, number> = {
         "Contribution to a Peer-review Paper": 0,
-        "Highly Relevant": 0,
-        "Relevant": 0,
+        "Confirmed Real-World": 0,
         "Abstention": 0,
         "Example Query": 0
     };
@@ -111,7 +110,6 @@ export async function generate_table_relevance(data: Record<string, IQueryData>)
         const relevance = entry["Real world relevance or background of the query"];
         const id = entry["Query"];
         if(data[id]===undefined){
-            console.log(id);
             continue;
         }
         ++i;
@@ -123,19 +121,16 @@ export async function generate_table_relevance(data: Record<string, IQueryData>)
             result["Abstention"]++;
         }else if (relevance.startsWith("PAPER:")) {
             result["Contribution to a Peer-review Paper"]++;
-        } else if (relevance.startsWith("REAL WORLD:")) {
-            result["Highly Relevant"]++;
         } else if (relevance.startsWith("TOY:")) {
             result["Example Query"]++;
         } else if (relevance.length > 0) {
-            result["Relevant"]++;
+            result["Confirmed Real-World"]++;
         }
     }
 
     const keys = [
         "Contribution to a Peer-review Paper",
-        "Highly Relevant",
-        "Relevant",
+        "Confirmed Real-World",
         "Abstention",
         "Example Query"
     ];

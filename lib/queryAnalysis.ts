@@ -43,9 +43,14 @@ export function analyseQuery(data: Record<string, IQueryData>): IQueryAnalysis {
     for (const [key, queryData] of Object.entries(data)) {
         const query = translate(queryData.query);
         const queryStatistic = calculate_statistic(query);
+        const federation = new Set(queryData.federatesWith);
+        const curatedFederation = new Set();
+        for(const member of federation){
+            curatedFederation.add(member.replace(/\/$/, ""));
+        }
         res[key] = {
             ...queryStatistic,
-            number_federation_member: queryData.federatesWith.length + 1
+            number_federation_member: curatedFederation.size
         };
 
         for (const [stat, value] of Object.entries(res[key])) {
