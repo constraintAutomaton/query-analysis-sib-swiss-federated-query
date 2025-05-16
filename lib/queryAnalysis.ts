@@ -32,6 +32,7 @@ export function analyseQuery(data: Record<string, IQueryData>): IQueryAnalysis {
         number_optional: [],
         number_property_path: [],
         number_recursive_property_path: [],
+        number_union_with_multiple_triple_triple_patterns: [],
         number_union: [],
         number_distinct: [],
         number_limit: [],

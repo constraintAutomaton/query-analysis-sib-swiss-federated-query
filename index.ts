@@ -1,5 +1,4 @@
 import { generateCsvSurvey } from './lib/generateSurvey';
-import { readFile } from "node:fs/promises";
 import { type IQueryData } from './lib/util';
 import { Command } from 'commander';
 import { analyseQuery } from './lib/queryAnalysis';
@@ -20,7 +19,9 @@ const options = program.opts();
 const survey_action = options.survey;
 const queryAnalysisAction = options.queryAnalysis;
 
-const data: Record<string, IQueryData> = JSON.parse((await readFile("./sib-swiss-federated-query-extractor/sib-swiss-federated-queries.json")).toString()).data;
+const dataFile = Bun.file("./extra/queries.json");
+
+const data: Record<string, IQueryData> = JSON.parse((await dataFile.text())).data;
 
 if (survey_action) {
   const outputSurveyPath = "./results/survey.csv";
@@ -44,6 +45,6 @@ if (queryAnalysisAction) {
   const bucketSummaryTable = await generate_summary_table_bucket(res.data);
   await Bun.write(outputSummaryBucketPath, bucketSummaryTable);
 
-  const tableRelevance = await generate_table_relevance();
+  const tableRelevance = await generate_table_relevance(data);
   await Bun.write(outputRelevance, tableRelevance);
 }

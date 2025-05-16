@@ -1,19 +1,16 @@
 import type { ISurvey } from "./generateSurvey";
 import type { IFederatedQueryStatistic, ISummary, ISummaryStatistic } from "./queryAnalysis";
 import { csv2json } from 'json-2-csv';
+import type { IQueryData } from "./util";
 
 export async function generate_summary_table(summary: ISummary): Promise<string> {
     const file = Bun.file("./template/summary_template.tex");
     let template = await file.text();
     const featureKeys: (keyof IFederatedQueryStatistic)[] = [
         "number_triple_patterns",
-        "number_bgp",
         "number_optional",
-        "number_property_path",
-        "number_recursive_property_path",
         "number_union",
-        "number_distinct",
-        "number_limit",
+        "number_union_with_multiple_triple_triple_patterns",
         "number_federation_member"
     ];
 
@@ -94,7 +91,7 @@ export async function generate_summary_table_bucket(data: Record<string, IFedera
     return template;
 }
 
-export async function generate_table_relevance(): Promise<string> {
+export async function generate_table_relevance(data: Record<string, IQueryData>): Promise<string> {
     const templateFile = Bun.file("./template/real_world_relevance.tex");
     let template = await templateFile.text();
 
@@ -106,15 +103,24 @@ export async function generate_table_relevance(): Promise<string> {
         "Contribution to a Peer-review Paper": 0,
         "Highly Relevant": 0,
         "Relevant": 0,
-        "Not Described": 0,
+        "Abstention": 0,
         "Example Query": 0
     };
+    let i =0;
     for (const entry of csvObject) {
         const relevance = entry["Real world relevance or background of the query"];
+        const id = entry["Query"];
+        if(data[id]===undefined){
+            console.log(id);
+            continue;
+        }
+        ++i;
         if (relevance === undefined) {
-            result["Not Described"]++;
+            result["Abstention"]++;
         }else if(relevance === ""){
-            result["Not Described"]++;
+            result["Abstention"]++;
+        }else if(relevance.startsWith("-")){
+            result["Abstention"]++;
         }else if (relevance.startsWith("PAPER:")) {
             result["Contribution to a Peer-review Paper"]++;
         } else if (relevance.startsWith("REAL WORLD:")) {
@@ -130,7 +136,7 @@ export async function generate_table_relevance(): Promise<string> {
         "Contribution to a Peer-review Paper",
         "Highly Relevant",
         "Relevant",
-        "Not Described",
+        "Abstention",
         "Example Query"
     ];
 
@@ -138,6 +144,6 @@ export async function generate_table_relevance(): Promise<string> {
         const value = result[key];
         template = template.replace("{}", value.toFixed(0));
     }
-
+    template = template.replace("{}", i.toFixed(0));
     return template;
 }
