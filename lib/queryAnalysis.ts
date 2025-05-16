@@ -47,6 +47,7 @@ export function analyseQuery(data: Record<string, IQueryData>): IQueryAnalysis {
         const curatedFederation = new Set();
         for(const member of federation){
             curatedFederation.add(member.replace(/\/$/, ""));
+            curatedFederation.add(queryData.target.replace(/\/$/, ""));
         }
         res[key] = {
             ...queryStatistic,

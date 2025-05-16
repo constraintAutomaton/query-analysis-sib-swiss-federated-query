@@ -742,7 +742,7 @@
       "number_union_with_multiple_triple_triple_patterns": 0,
       "number_distinct": 1,
       "number_limit": 0,
-      "number_federation_member": 1
+      "number_federation_member": 2
     },
     "https://sparql.omabrowser.org/.well-known/sparql-examples/15-rat-TP53-biosodafrontend": {
       "number_bgp": 3,
@@ -754,7 +754,7 @@
       "number_union_with_multiple_triple_triple_patterns": 0,
       "number_distinct": 1,
       "number_limit": 0,
-      "number_federation_member": 1
+      "number_federation_member": 2
     },
     "https://www.bgee.org/sparql/.well-known/sparql-examples/027-biosodafrontend": {
       "number_bgp": 2,
@@ -766,7 +766,7 @@
       "number_union_with_multiple_triple_triple_patterns": 0,
       "number_distinct": 1,
       "number_limit": 1,
-      "number_federation_member": 1
+      "number_federation_member": 2
     },
     "https://www.bgee.org/sparql/.well-known/sparql-examples/028-biosodafrontend": {
       "number_bgp": 2,
@@ -778,7 +778,7 @@
       "number_union_with_multiple_triple_triple_patterns": 0,
       "number_distinct": 1,
       "number_limit": 0,
-      "number_federation_member": 1
+      "number_federation_member": 2
     },
     "https://sparql.uniprot.org/.well-known/sparql-examples/117_biosodafrontend_glioblastoma_orthologs_rat": {
       "number_bgp": 4,
@@ -790,7 +790,7 @@
       "number_union_with_multiple_triple_triple_patterns": 0,
       "number_distinct": 1,
       "number_limit": 0,
-      "number_federation_member": 2
+      "number_federation_member": 3
     },
     "https://sparql.uniprot.org/.well-known/sparql-examples/118_biosodafrontend_rat_brain_human_cancer": {
       "number_bgp": 4,
@@ -802,7 +802,7 @@
       "number_union_with_multiple_triple_triple_patterns": 0,
       "number_distinct": 0,
       "number_limit": 0,
-      "number_federation_member": 2
+      "number_federation_member": 3
     }
   },
   "summary": {
@@ -861,10 +861,10 @@
       "std": 0.38343977846761573
     },
     "number_federation_member": {
-      "avg": 2.1492537313432836,
+      "avg": 2.2388059701492535,
       "max": 3,
-      "min": 1,
-      "std": 0.4963668402482352
+      "min": 2,
+      "std": 0.42635393603240845
     }
   }
 }
